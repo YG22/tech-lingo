@@ -17,7 +17,8 @@ export const Route = createFileRoute("/words/$level/")({
 });
 
 function SetsList() {
-  const { level } = Route.useLoaderData();
+  const data = Route.useLoaderData();
+  const level = data.level as Level;
   const { t } = useLang();
   const sets = WORD_SETS[level];
   const [, force] = useState(0);

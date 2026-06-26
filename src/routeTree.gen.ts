@@ -10,33 +10,141 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WordsIndexRouteImport } from './routes/words.index'
+import { Route as SoftwareIndexRouteImport } from './routes/software.index'
+import { Route as QaIndexRouteImport } from './routes/qa.index'
+import { Route as SoftwareTopicRouteImport } from './routes/software.$topic'
+import { Route as QaTopicRouteImport } from './routes/qa.$topic'
+import { Route as WordsLevelIndexRouteImport } from './routes/words.$level.index'
+import { Route as WordsLevelSetIdIndexRouteImport } from './routes/words.$level.$setId.index'
+import { Route as WordsLevelSetIdModeRouteImport } from './routes/words.$level.$setId.$mode'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WordsIndexRoute = WordsIndexRouteImport.update({
+  id: '/words/',
+  path: '/words/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SoftwareIndexRoute = SoftwareIndexRouteImport.update({
+  id: '/software/',
+  path: '/software/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QaIndexRoute = QaIndexRouteImport.update({
+  id: '/qa/',
+  path: '/qa/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SoftwareTopicRoute = SoftwareTopicRouteImport.update({
+  id: '/software/$topic',
+  path: '/software/$topic',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QaTopicRoute = QaTopicRouteImport.update({
+  id: '/qa/$topic',
+  path: '/qa/$topic',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WordsLevelIndexRoute = WordsLevelIndexRouteImport.update({
+  id: '/words/$level/',
+  path: '/words/$level/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WordsLevelSetIdIndexRoute = WordsLevelSetIdIndexRouteImport.update({
+  id: '/words/$level/$setId/',
+  path: '/words/$level/$setId/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WordsLevelSetIdModeRoute = WordsLevelSetIdModeRouteImport.update({
+  id: '/words/$level/$setId/$mode',
+  path: '/words/$level/$setId/$mode',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/qa/$topic': typeof QaTopicRoute
+  '/software/$topic': typeof SoftwareTopicRoute
+  '/qa/': typeof QaIndexRoute
+  '/software/': typeof SoftwareIndexRoute
+  '/words/': typeof WordsIndexRoute
+  '/words/$level/': typeof WordsLevelIndexRoute
+  '/words/$level/$setId/$mode': typeof WordsLevelSetIdModeRoute
+  '/words/$level/$setId/': typeof WordsLevelSetIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/qa/$topic': typeof QaTopicRoute
+  '/software/$topic': typeof SoftwareTopicRoute
+  '/qa': typeof QaIndexRoute
+  '/software': typeof SoftwareIndexRoute
+  '/words': typeof WordsIndexRoute
+  '/words/$level': typeof WordsLevelIndexRoute
+  '/words/$level/$setId/$mode': typeof WordsLevelSetIdModeRoute
+  '/words/$level/$setId': typeof WordsLevelSetIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/qa/$topic': typeof QaTopicRoute
+  '/software/$topic': typeof SoftwareTopicRoute
+  '/qa/': typeof QaIndexRoute
+  '/software/': typeof SoftwareIndexRoute
+  '/words/': typeof WordsIndexRoute
+  '/words/$level/': typeof WordsLevelIndexRoute
+  '/words/$level/$setId/$mode': typeof WordsLevelSetIdModeRoute
+  '/words/$level/$setId/': typeof WordsLevelSetIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/qa/$topic'
+    | '/software/$topic'
+    | '/qa/'
+    | '/software/'
+    | '/words/'
+    | '/words/$level/'
+    | '/words/$level/$setId/$mode'
+    | '/words/$level/$setId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/qa/$topic'
+    | '/software/$topic'
+    | '/qa'
+    | '/software'
+    | '/words'
+    | '/words/$level'
+    | '/words/$level/$setId/$mode'
+    | '/words/$level/$setId'
+  id:
+    | '__root__'
+    | '/'
+    | '/qa/$topic'
+    | '/software/$topic'
+    | '/qa/'
+    | '/software/'
+    | '/words/'
+    | '/words/$level/'
+    | '/words/$level/$setId/$mode'
+    | '/words/$level/$setId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  QaTopicRoute: typeof QaTopicRoute
+  SoftwareTopicRoute: typeof SoftwareTopicRoute
+  QaIndexRoute: typeof QaIndexRoute
+  SoftwareIndexRoute: typeof SoftwareIndexRoute
+  WordsIndexRoute: typeof WordsIndexRoute
+  WordsLevelIndexRoute: typeof WordsLevelIndexRoute
+  WordsLevelSetIdModeRoute: typeof WordsLevelSetIdModeRoute
+  WordsLevelSetIdIndexRoute: typeof WordsLevelSetIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +156,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/words/': {
+      id: '/words/'
+      path: '/words'
+      fullPath: '/words/'
+      preLoaderRoute: typeof WordsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/software/': {
+      id: '/software/'
+      path: '/software'
+      fullPath: '/software/'
+      preLoaderRoute: typeof SoftwareIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/qa/': {
+      id: '/qa/'
+      path: '/qa'
+      fullPath: '/qa/'
+      preLoaderRoute: typeof QaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/software/$topic': {
+      id: '/software/$topic'
+      path: '/software/$topic'
+      fullPath: '/software/$topic'
+      preLoaderRoute: typeof SoftwareTopicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/qa/$topic': {
+      id: '/qa/$topic'
+      path: '/qa/$topic'
+      fullPath: '/qa/$topic'
+      preLoaderRoute: typeof QaTopicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/words/$level/': {
+      id: '/words/$level/'
+      path: '/words/$level'
+      fullPath: '/words/$level/'
+      preLoaderRoute: typeof WordsLevelIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/words/$level/$setId/': {
+      id: '/words/$level/$setId/'
+      path: '/words/$level/$setId'
+      fullPath: '/words/$level/$setId/'
+      preLoaderRoute: typeof WordsLevelSetIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/words/$level/$setId/$mode': {
+      id: '/words/$level/$setId/$mode'
+      path: '/words/$level/$setId/$mode'
+      fullPath: '/words/$level/$setId/$mode'
+      preLoaderRoute: typeof WordsLevelSetIdModeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  QaTopicRoute: QaTopicRoute,
+  SoftwareTopicRoute: SoftwareTopicRoute,
+  QaIndexRoute: QaIndexRoute,
+  SoftwareIndexRoute: SoftwareIndexRoute,
+  WordsIndexRoute: WordsIndexRoute,
+  WordsLevelIndexRoute: WordsLevelIndexRoute,
+  WordsLevelSetIdModeRoute: WordsLevelSetIdModeRoute,
+  WordsLevelSetIdIndexRoute: WordsLevelSetIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
