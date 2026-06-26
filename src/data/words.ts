@@ -628,6 +628,11 @@ export const WORD_SETS: Record<Level, WordSet[]> = {
   ],
 };
 
+// Merge extra word sets into the main catalog
+for (const level of ["easy", "medium", "hard"] as Level[]) {
+  WORD_SETS[level].push(...EXTRA_WORD_SETS[level]);
+}
+
 export function getSet(level: Level, setId: number): WordSet | undefined {
   return WORD_SETS[level]?.find((s) => s.id === setId);
 }
@@ -635,3 +640,4 @@ export function getSet(level: Level, setId: number): WordSet | undefined {
 export function allWords(): Word[] {
   return Object.values(WORD_SETS).flat().flatMap((s) => s.words);
 }
+
