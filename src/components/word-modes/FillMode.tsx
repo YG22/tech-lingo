@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Check, Volume2, Eye, ArrowRight } from "lucide-react";
+import { Check, Volume2, Eye, ArrowRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { speak } from "@/lib/speech";
 import { useLang } from "@/lib/i18n";
@@ -55,6 +55,7 @@ export function FillMode({ set }: { set: WordSet }) {
   const correct = masked.missing.every(
     (pos, i) => values[i]?.toLowerCase() === w.en[pos].toLowerCase(),
   );
+  const complete = values.every((v) => v.length > 0);
 
   const handleChange = (i: number, val: string) => {
     const char = val.slice(-1);
@@ -136,6 +137,12 @@ export function FillMode({ set }: { set: WordSet }) {
             <div className="flex items-center gap-1 text-sm font-semibold text-success">
               <Check className="size-4" />
               {t("נכון!", "Correct!")}
+            </div>
+          )}
+          {complete && !correct && !revealed && (
+            <div className="flex items-center gap-1 text-sm font-semibold text-destructive">
+              <X className="size-4" />
+              {t("לא נכון, נסה שוב", "Not quite, try again")}
             </div>
           )}
         </div>
