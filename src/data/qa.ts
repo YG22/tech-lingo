@@ -1,5 +1,8 @@
+import { EXTRA_TOPICS } from "./qa-extra";
+
 export type QA = { q_he: string; a_he: string; q_en: string; a_en: string };
 export type Topic = { id: string; title_he: string; title_en: string; items: QA[] };
+
 
 export const QA_TOPICS: Topic[] = [
   {
@@ -783,3 +786,7 @@ export const SOFTWARE_TOPICS: Topic[] = [
     ],
   },
 ];
+
+// Append job-interview and advanced topics
+QA_TOPICS.push(...EXTRA_TOPICS);
+
