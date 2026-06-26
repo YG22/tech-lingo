@@ -81,14 +81,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Word Tech – לימוד אנגלית טכנית ושאלות QA" },
+      { title: "TechLingo – לימוד אנגלית טכנית ושאלות QA" },
       {
         name: "description",
         content:
-          "Word Tech – אפליקציה ללימוד מילים באנגלית טכנית ותרגול שאלות ותשובות בתחום בדיקות תוכנה ופיתוח תוכנה.",
+          "TechLingo – אפליקציה ללימוד מילים באנגלית טכנית ותרגול שאלות ותשובות בתחום בדיקות תוכנה ופיתוח תוכנה.",
       },
-      { name: "author", content: "Word Tech" },
-      { property: "og:title", content: "Word Tech – לימוד אנגלית טכנית" },
+      { name: "author", content: "TechLingo" },
+      { property: "og:title", content: "TechLingo – לימוד אנגלית טכנית" },
       {
         property: "og:description",
         content:
