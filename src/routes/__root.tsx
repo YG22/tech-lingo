@@ -1,3 +1,6 @@
+import "@fontsource/rubik/400.css";
+import "@fontsource/rubik/500.css";
+import "@fontsource/rubik/700.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -8,6 +11,11 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+
+import appCss from "../styles.css?url";
+import { reportLovableError } from "../lib/lovable-error-reporting";
+import { LangProvider } from "../lib/i18n";
+
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
