@@ -1007,3 +1007,68 @@ export const EXTRA_TOPICS: Topic[] = [
     ],
   },
 ];
+
+// Additional topics focused on software development (non-QA/interview)
+export const EXTRA_SOFTWARE_TOPICS: Topic[] = [
+  {
+    id: "algorithms",
+    title_he: "אלגוריתמים ומבני נתונים",
+    title_en: "Algorithms & Data Structures",
+    items: [
+      {
+        q_he: "מה ההבדל בין Array ל-Linked List?",
+        a_he: "Array: אחסון רציף בזיכרון, גישה באינדקס O(1), הוספה/מחיקה באמצע O(n). Linked List: nodes מקושרים בזיכרון לא רציף, גישה O(n), הוספה/מחיקה בראש O(1).",
+        q_en: "Array vs Linked List?",
+        a_en: "Array: contiguous memory, index access O(1), middle insertion/deletion O(n). Linked List: non-contiguous nodes, access O(n), head insertion/deletion O(1).",
+      },
+      {
+        q_he: "מהו Hash Table ואיך הוא עובד?",
+        a_he: "מבנה נתונים שממפה מפתח לערך באמצעות פונקציית hash. המפתח מומר לאינדקס במערך, וקוליז'ן (מפתחות עם אותו hash) נפתר בדרך כלל ב-chaining או open addressing. ממוצע: O(1) לחיפוש, הוספה ומחיקה.",
+        q_en: "What is a Hash Table and how does it work?",
+        a_en: "A data structure mapping keys to values using a hash function. The key is converted to an array index; collisions (same hash) are usually handled by chaining or open addressing. Average O(1) for lookup, insert and delete.",
+      },
+      {
+        q_he: "מתי להשתמש ב-BFS ומתי ב-DFS?",
+        a_he: "BFS (Breadth-First Search): מתאים למציאת המסלול הקצר ביותר במשקלים אחידים, או כאשר הפתרון צפוי להיות רדוד. DFS (Depth-First Search): מתאים לבעיות שמחפשות מסלול אחד, topological sort, או עץ עמוק.",
+        q_en: "When to use BFS vs DFS?",
+        a_en: "BFS: good for shortest path in unweighted graphs, or when the solution is expected to be shallow. DFS: good for finding one path, topological sort, or deep trees.",
+      },
+      {
+        q_he: "מה זה Dynamic Programming?",
+        a_he: "שיטת פתרון לבעיות אופטימיזציה שמחלקות לתת-בעיות חופפות. שומרים תוצאות של תת-בעיות (memoization) כדי למנוע חישובים חוזרים. דוגמאות: Fibonacci, Knapsack, Longest Common Subsequence.",
+        q_en: "What is Dynamic Programming?",
+        a_en: "A method for solving optimization problems by breaking them into overlapping sub-problems. Stores sub-problem results (memoization) to avoid recomputation. Examples: Fibonacci, Knapsack, Longest Common Subsequence.",
+      },
+      {
+        q_he: "מה ההבדל בין Greedy ל-Dynamic Programming?",
+        a_he: "Greedy: בכל שלב בוחר את הבחירה הטובה ביותר מקומית, ללא חזרה אחורה. פשוט אך לא תמיד אופטימלי. Dynamic Programming: בוחן את כל התת-בעיות ומבטיח אופטימום גלובלי, אך לעיתים יקר יותר.",
+        q_en: "Greedy vs Dynamic Programming?",
+        a_en: "Greedy: makes the locally best choice at each step without backtracking. Simple but not always optimal. Dynamic Programming: considers all sub-problems and guarantees global optimum, often more expensive.",
+      },
+      {
+        q_he: "מהם עקרונות הבסיס של Binary Search Tree?",
+        a_he: "עץ בינארי שבו כל צומת שמאלי קטן מהאב וכל צומת ימני גדול. מאפשר חיפוש, הוספה ומחיקה ב-O(log n) בממוצע. אם העץ הופך לשרשרת (unbalanced), מורכבות נהיית O(n). פתרון: AVL או Red-Black Tree.",
+        q_en: "What are the basics of a Binary Search Tree?",
+        a_en: "A binary tree where each left child is smaller than its parent and each right child is larger. Allows search, insert and delete in O(log n) average. If unbalanced it degrades to O(n). Fix: AVL or Red-Black Tree.",
+      },
+      {
+        q_he: "מה זה Topological Sort?",
+        a_he: "סידור של צמתים בגרף מכוון ללא מעגלים (DAG) כך שכל קשת מופיעה משמאל לימין. שימושים: scheduling tasks עם dependencies, build systems, resolve package dependencies.",
+        q_en: "What is Topological Sort?",
+        a_en: "An ordering of vertices in a directed acyclic graph (DAG) such that every edge goes from left to right. Uses: scheduling tasks with dependencies, build systems, resolving package dependencies.",
+      },
+      {
+        q_he: "מה ההבדל בין Sorting Algorithms שונים?",
+        a_he: "Quick Sort: O(n log n) ממוצע, O(n²) גרוע. Merge Sort: O(n log n) יציב, דורש זיכרון נוסף. Heap Sort: O(n log n) in-place. Counting/Radix: ליניארי לנתונים במספרים מוגבלים. בחירה תלויה בנתונים ובמגבלות.",
+        q_en: "How do sorting algorithms differ?",
+        a_en: "Quick Sort: O(n log n) average, O(n²) worst. Merge Sort: stable O(n log n), needs extra memory. Heap Sort: O(n log n) in-place. Counting/Radix: linear for bounded numeric data. Choice depends on data and constraints.",
+      },
+      {
+        q_he: "מה זה Time Complexity ו-Space Complexity?",
+        a_he: "Time Complexity: כיצד זמן הריצה גדל עם גודל הקלט (Big-O). Space Complexity: כיצד גודל הזיכרון הנוסף שבו משתמש האלגוריתם גדל עם הקלט. שניהם מודדים בגבול העליון (worst case).",
+        q_en: "What are Time and Space Complexity?",
+        a_en: "Time Complexity: how runtime grows with input size (Big-O). Space Complexity: how extra memory used by the algorithm grows with input size. Both measure upper bounds (worst case).",
+      },
+      {
+        q_he: "כיצד בודקים אם מחרוזת היא palindrome?",
+        a_he: 
