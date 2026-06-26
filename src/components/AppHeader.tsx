@@ -22,7 +22,7 @@ export function AppHeader({ back, title }: { back?: string; title?: string }) {
             </Button>
           )}
           <Link to="/" className="font-display text-xl font-bold tracking-tight">
-            Word Tech
+            TechLingo
           </Link>
         </div>
         {title && <h1 className="hidden text-sm font-medium opacity-80 sm:block">{title}</h1>}

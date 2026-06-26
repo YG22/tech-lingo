@@ -42,7 +42,7 @@ function Home() {
       <main className="mx-auto max-w-3xl px-4 py-8">
         <div className="mb-8 text-center">
           <h1 className="font-display text-3xl font-bold text-foreground sm:text-4xl">
-            Word Tech
+            TechLingo
           </h1>
           <p className="mt-2 text-sm text-foreground/70 sm:text-base">
             {t(
