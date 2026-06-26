@@ -139,6 +139,12 @@ export function FillMode({ set }: { set: WordSet }) {
               {t("נכון!", "Correct!")}
             </div>
           )}
+          {complete && !correct && !revealed && (
+            <div className="flex items-center gap-1 text-sm font-semibold text-destructive">
+              <X className="size-4" />
+              {t("לא נכון, נסה שוב", "Not quite, try again")}
+            </div>
+          )}
         </div>
       </div>
 
