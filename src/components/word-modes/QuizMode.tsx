@@ -17,23 +17,34 @@ function shuffle<T>(arr: T[]): T[] {
 export function QuizMode({ set }: { set: WordSet }) {
   const { t } = useLang();
   const pool = useMemo(() => allWords(), []);
-  const [order, setOrder] = useState(() => shuffle(set.words));
+  const [mounted, setMounted] = useState(false);
+  const [order, setOrder] = useState<typeof set.words>(set.words);
   const [idx, setIdx] = useState(0);
   const [picks, setPicks] = useState<string[]>([]);
   const [locked, setLocked] = useState(false);
   const [score, setScore] = useState(0);
   const cur = order[idx];
 
+  useEffect(() => {
+    setOrder(shuffle(set.words));
+    setIdx(0);
+    setScore(0);
+    setMounted(true);
+  }, [set]);
+
   const choices = useMemo(() => {
+    if (!mounted) return [cur.he, "", "", ""];
     const others = shuffle(pool.filter((w) => w.he !== cur.he)).slice(0, 3);
     return shuffle([cur, ...others]).map((w) => w.he);
-  }, [cur, pool]);
+  }, [cur, pool, mounted]);
 
   useEffect(() => {
+    if (!mounted) return;
     speak(cur.en);
     setPicks([]);
     setLocked(false);
-  }, [cur]);
+  }, [cur, mounted]);
+
 
   const onPick = (he: string) => {
     if (locked || picks.includes(he)) return;
