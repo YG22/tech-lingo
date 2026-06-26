@@ -764,7 +764,7 @@ export const SOFTWARE_TOPICS: Topic[] = [
       },
       {
         q_he: "מה ההבדל בין var, let ו-const?",
-        a_he: "var: scope ברמת פונקציה, אפשר להגדיר מחדש – מיושן. let: scope ברמת בלוק, אפשר לשנות ערך. const: scope ברמת בלוק, לא ניתן להציב מחדש (אך לאובייקטים שיוצרים בו אפשר לעדכן שדות).",
+        a_he: "var: scope ברמת פונקציה, אפשר להגדיר מחדש – מיושן. let: scope ברמת בלוק, אפשר לשנות ערך. const: scope ברמת בלוק, לא ניתן להציב מחדש (אך אובייקטים המאוחסנים בו ניתנים לשינוי פנימי).",
         q_en: "var vs let vs const?",
         a_en: "var: function-scoped, can be redeclared – legacy. let: block-scoped, reassignable. const: block-scoped, not reassignable (but objects inside can still mutate).",
       },
