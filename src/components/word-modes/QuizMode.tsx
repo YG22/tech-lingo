@@ -23,7 +23,6 @@ export function QuizMode({ set }: { set: WordSet }) {
   const [picks, setPicks] = useState<string[]>([]);
   const [locked, setLocked] = useState(false);
   const [score, setScore] = useState(0);
-  const cur = order[idx];
 
   useEffect(() => {
     setOrder(shuffle(set.words));
@@ -32,8 +31,10 @@ export function QuizMode({ set }: { set: WordSet }) {
     setMounted(true);
   }, [set]);
 
+  const cur = order[idx];
+
   const choices = useMemo(() => {
-    if (!mounted) return [cur.he, "", "", ""];
+    if (!mounted) return [];
     const others = shuffle(pool.filter((w) => w.he !== cur.he)).slice(0, 3);
     return shuffle([cur, ...others]).map((w) => w.he);
   }, [cur, pool, mounted]);
@@ -44,6 +45,9 @@ export function QuizMode({ set }: { set: WordSet }) {
     setPicks([]);
     setLocked(false);
   }, [cur, mounted]);
+
+  if (!mounted) return <div className="min-h-[400px]" />;
+
 
 
   const onPick = (he: string) => {
