@@ -27,7 +27,7 @@ export const QA_TOPICS: Topic[] = [
       },
       {
         q_he: "מה ההבדל בין QA Manual ל-QA Automation?",
-        a_he: "QA Manual מבצע בדיקות ידניות לפי תכנית בדיקות, בודק UX וקצוות שקשה לאוטמט. QA Automation כותב סקריפטים שמריצים בדיקות אוטומטית (Selenium, Cypress, Playwright), בעיקר לרגרסיה ולבדיקות חוזרות.",
+        a_he: "QA Manual מבצע בדיקות ידניות לפי תכנית בדיקות, בודק UX וקצוות שקשה להפוך לאוטומציה. QA Automation כותב סקריפטים שמריצים בדיקות אוטומטית (Selenium, Cypress, Playwright), בעיקר לרגרסיה ולבדיקות חוזרות.",
         q_en: "Manual QA vs Automation QA?",
         a_en: "Manual QA executes tests by hand following a plan and checks UX/edge cases hard to automate. Automation QA writes scripts (Selenium, Cypress, Playwright) that run tests automatically, mainly for regression and repeatable checks.",
       },
