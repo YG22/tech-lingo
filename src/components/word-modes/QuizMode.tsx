@@ -19,7 +19,8 @@ export function QuizMode({ set }: { set: WordSet }) {
   const pool = useMemo(() => allWords(), []);
   const [order, setOrder] = useState(() => shuffle(set.words));
   const [idx, setIdx] = useState(0);
-  const [picked, setPicked] = useState<string | null>(null);
+  const [picks, setPicks] = useState<string[]>([]);
+  const [locked, setLocked] = useState(false);
   const [score, setScore] = useState(0);
   const cur = order[idx];
 
@@ -30,13 +31,21 @@ export function QuizMode({ set }: { set: WordSet }) {
 
   useEffect(() => {
     speak(cur.en);
-    setPicked(null);
+    setPicks([]);
+    setLocked(false);
   }, [cur]);
 
   const onPick = (he: string) => {
-    if (picked) return;
-    setPicked(he);
-    if (he === cur.he) setScore((s) => s + 1);
+    if (locked || picks.includes(he)) return;
+    const nextPicks = [...picks, he];
+    setPicks(nextPicks);
+    if (he === cur.he) {
+      setLocked(true);
+      if (nextPicks.length === 1) setScore((s) => s + 1);
+    } else if (nextPicks.length >= 2) {
+      // Second wrong attempt — reveal correct answer
+      setLocked(true);
+    }
   };
 
   const next = () => {
@@ -48,7 +57,7 @@ export function QuizMode({ set }: { set: WordSet }) {
     }
   };
 
-  const finished = idx + 1 === order.length && picked !== null;
+  const finished = idx + 1 === order.length && locked;
 
   return (
     <div className="flex flex-col items-center gap-6">
@@ -73,33 +82,40 @@ export function QuizMode({ set }: { set: WordSet }) {
         </div>
       </div>
 
+      {picks.length === 1 && !locked && (
+        <div className="text-sm font-semibold text-destructive">
+          {t("לא נכון, יש לך עוד ניסיון אחד", "Not quite — you have one more try")}
+        </div>
+      )}
+
       <div className="grid w-full gap-2 sm:grid-cols-2">
         {choices.map((he) => {
           const isCorrect = he === cur.he;
-          const isPicked = picked === he;
-          const show = picked !== null;
+          const isPicked = picks.includes(he);
+          const revealCorrect = locked && isCorrect;
+          const showWrong = isPicked && !isCorrect;
           return (
             <button
               key={he}
               onClick={() => onPick(he)}
-              disabled={show}
+              disabled={locked || isPicked}
               className={`flex items-center justify-between rounded-xl border-2 p-4 text-right text-base transition ${
-                show && isCorrect
+                revealCorrect
                   ? "border-success bg-success/15"
-                  : show && isPicked
-                    ? "border-destructive bg-destructive/15"
-                    : "border-primary/30 bg-card hover:border-primary"
+                  : showWrong
+                    ? "border-destructive bg-destructive/15 opacity-70"
+                    : "border-primary/30 bg-card hover:border-primary disabled:opacity-60"
               }`}
             >
               <span>{he}</span>
-              {show && isCorrect && <Check className="size-5 text-success" />}
-              {show && isPicked && !isCorrect && <X className="size-5 text-destructive" />}
+              {revealCorrect && <Check className="size-5 text-success" />}
+              {showWrong && <X className="size-5 text-destructive" />}
             </button>
           );
         })}
       </div>
 
-      {picked !== null && (
+      {locked && (
         <Button size="lg" onClick={next}>
           {finished ? (
             <>
@@ -114,3 +130,4 @@ export function QuizMode({ set }: { set: WordSet }) {
     </div>
   );
 }
+
