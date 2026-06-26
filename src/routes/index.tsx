@@ -15,8 +15,8 @@ function Home() {
       icon: BookOpen,
       he: "תרגול מילים באנגלית טכנית",
       en: "Tech English Vocabulary",
-      desc_he: "150+ מילים מסודרות בסטים לפי דרגות קושי, עם השמעה וחידונים",
-      desc_en: "150+ words in graded sets with pronunciation and quizzes",
+      desc_he: "380+ מילים ב-38 סטים מדורגים, עם השמעה, חידון ובדיקות איות",
+      desc_en: "380+ words across 38 graded sets, with pronunciation, quiz and spelling drills",
     },
     {
       to: "/qa",
