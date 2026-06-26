@@ -495,7 +495,7 @@ export const SOFTWARE_TOPICS: Topic[] = [
       },
       {
         q_he: "מה זה Interface?",
-        a_he: "חוזה שמגדיר אילו מתודות מחלקה חייבת לממש, בלי לספק מימוש. מאפשר להחליף מימושים שונים שמכבדים את אותו חוזה (Dependency inversion).",
+        a_he: "חוזה שמגדיר אילו מתודות מחלקה חייבת לממש, בלי לספק מימוש. מאפשר להחליף מימושים שונים שמכבדים את אותו חוזה, ומהווה בסיס לעקרון Dependency Inversion.",
         q_en: "What is an Interface?",
         a_en: "A contract that defines which methods a class must implement, without providing the implementation. Lets you swap different implementations that honor the same contract.",
       },
