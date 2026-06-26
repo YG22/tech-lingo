@@ -620,7 +620,6 @@ export const EXTRA_TOPICS: Topic[] = [
         a_he: "מגוון מכשירים/OS/גרסאות (fragmentation), connectivity (WiFi/4G/offline), sensors (GPS, camera, gyroscope), interruptions (שיחות, התראות), מסכים קטנים, סוללה, אחסון מוגבל.",
         q_en: "What are the unique challenges of mobile testing?",
         a_en: "Device/OS/version fragmentation, connectivity (WiFi/4G/offline), sensors (GPS, camera, gyroscope), interruptions (calls, notifications), small screens, battery and limited storage.",
-        a_en: "Device/OS/version fragmentation, connectivity (WiFi/4G/offline), sensors (GPS, camera, gyroscope), interruptions (calls, notifications), small screens, battery and limited storage.",
       },
       {
         q_he: "מה זה Appium?",
