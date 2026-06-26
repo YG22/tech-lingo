@@ -58,10 +58,35 @@ export function FillMode({ set }: { set: WordSet }) {
 
   const handleChange = (i: number, val: string) => {
     const char = val.slice(-1);
+    const pos = masked.missing[i];
+    const expected = w.en[pos];
+    const expectedIsUpper = expected === expected.toUpperCase() && expected !== expected.toLowerCase();
+    const cased = char ? (expectedIsUpper ? char.toUpperCase() : char.toLowerCase()) : "";
     const next = [...values];
-    next[i] = char;
+    next[i] = cased;
     setValues(next);
-    if (char && i + 1 < masked.missing.length) {
+    if (cased && i + 1 < masked.missing.length) {
+      document.getElementById(`letter-${i + 1}`)?.focus();
+    }
+  };
+
+  const handleKeyDown = (i: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Backspace") {
+      e.preventDefault();
+      const next = [...values];
+      if (next[i]) {
+        next[i] = "";
+        setValues(next);
+      } else if (i > 0) {
+        next[i - 1] = "";
+        setValues(next);
+        document.getElementById(`letter-${i - 1}`)?.focus();
+      }
+    } else if (e.key === "ArrowLeft" && i > 0) {
+      e.preventDefault();
+      document.getElementById(`letter-${i - 1}`)?.focus();
+    } else if (e.key === "ArrowRight" && i + 1 < masked.missing.length) {
+      e.preventDefault();
       document.getElementById(`letter-${i + 1}`)?.focus();
     }
   };
@@ -96,9 +121,10 @@ export function FillMode({ set }: { set: WordSet }) {
                   type="text"
                   value={values[missingIndex]}
                   onChange={(e) => handleChange(missingIndex, e.target.value)}
+                  onKeyDown={(e) => handleKeyDown(missingIndex, e)}
                   maxLength={1}
                   autoFocus={missingIndex === 0}
-                  className="inline-block w-[1.1em] border-b-2 border-b-card-foreground/50 bg-transparent text-center uppercase outline-none transition focus:border-b-primary"
+                  className="inline-block w-[1.1em] border-b-2 border-b-card-foreground/50 bg-transparent text-center outline-none transition focus:border-b-primary"
                 />
               );
             })}
