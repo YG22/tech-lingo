@@ -1,4 +1,4 @@
-import { EXTRA_TOPICS } from "./qa-extra";
+import { EXTRA_SOFTWARE_TOPICS, EXTRA_TOPICS } from "./qa-extra";
 
 export type QA = { q_he: string; a_he: string; q_en: string; a_en: string };
 export type Topic = { id: string; title_he: string; title_en: string; items: QA[] };
