@@ -495,7 +495,7 @@ export const SOFTWARE_TOPICS: Topic[] = [
       },
       {
         q_he: "מה זה Interface?",
-        a_he: "חוזה שמגדיר אילו מתודות מחלקה חייבת לממש, בלי לספק מימוש. מאפשר להחליף מימושים שונים שמכבדים את אותו חוזה (Dependency inversion).",
+        a_he: "חוזה שמגדיר אילו מתודות מחלקה חייבת לממש, בלי לספק מימוש. מאפשר להחליף מימושים שונים שמכבדים את אותו חוזה, ומהווה בסיס לעקרון Dependency Inversion.",
         q_en: "What is an Interface?",
         a_en: "A contract that defines which methods a class must implement, without providing the implementation. Lets you swap different implementations that honor the same contract.",
       },
@@ -562,7 +562,7 @@ export const SOFTWARE_TOPICS: Topic[] = [
       },
       {
         q_he: "מה זה Normalization?",
-        a_he: "תהליך תכנון של סכמה ביחסי כדי למנוע כפילויות ולשמור על עקביות, על ידי פיצול נתונים לטבלאות מקושרות לפי צורות נורמליות (1NF, 2NF, 3NF). מקל על תחזוקה, אך יכול לפגוע בביצועי קריאה.",
+        a_he: "תהליך תכנון של סכמה יחסית כדי למנוע כפילויות ולשמור על עקביות, על ידי פיצול נתונים לטבלאות מקושרות לפי צורות נורמליות (1NF, 2NF, 3NF). מקל על תחזוקה, אך יכול לפגוע בביצועי קריאה.",
         q_en: "What is Normalization?",
         a_en: "Designing a relational schema to avoid duplication and keep consistency by splitting data into related tables per normal forms (1NF, 2NF, 3NF). Helps maintenance but may slow reads.",
       },
@@ -764,7 +764,7 @@ export const SOFTWARE_TOPICS: Topic[] = [
       },
       {
         q_he: "מה ההבדל בין var, let ו-const?",
-        a_he: "var: scope ברמת פונקציה, אפשר להגדיר מחדש – מיושן. let: scope ברמת בלוק, אפשר לשנות ערך. const: scope ברמת בלוק, לא ניתן להציב מחדש (אך לאובייקטים שיוצרים בו אפשר לעדכן שדות).",
+        a_he: "var: scope ברמת פונקציה, אפשר להגדיר מחדש – מיושן. let: scope ברמת בלוק, אפשר לשנות ערך. const: scope ברמת בלוק, לא ניתן להציב מחדש (אך אובייקטים המאוחסנים בו ניתנים לשינוי פנימי).",
         q_en: "var vs let vs const?",
         a_en: "var: function-scoped, can be redeclared – legacy. let: block-scoped, reassignable. const: block-scoped, not reassignable (but objects inside can still mutate).",
       },
