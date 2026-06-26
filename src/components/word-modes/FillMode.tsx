@@ -55,6 +55,7 @@ export function FillMode({ set }: { set: WordSet }) {
   const correct = masked.missing.every(
     (pos, i) => values[i]?.toLowerCase() === w.en[pos].toLowerCase(),
   );
+  const complete = values.every((v) => v.length > 0);
 
   const handleChange = (i: number, val: string) => {
     const char = val.slice(-1);
