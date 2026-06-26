@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Check, Volume2, Eye, ArrowRight } from "lucide-react";
+import { Check, Volume2, Eye, ArrowRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { speak } from "@/lib/speech";
 import { useLang } from "@/lib/i18n";
