@@ -562,7 +562,7 @@ export const SOFTWARE_TOPICS: Topic[] = [
       },
       {
         q_he: "מה זה Normalization?",
-        a_he: "תהליך תכנון של סכמה ביחסי כדי למנוע כפילויות ולשמור על עקביות, על ידי פיצול נתונים לטבלאות מקושרות לפי צורות נורמליות (1NF, 2NF, 3NF). מקל על תחזוקה, אך יכול לפגוע בביצועי קריאה.",
+        a_he: "תהליך תכנון של סכמה יחסית כדי למנוע כפילויות ולשמור על עקביות, על ידי פיצול נתונים לטבלאות מקושרות לפי צורות נורמליות (1NF, 2NF, 3NF). מקל על תחזוקה, אך יכול לפגוע בביצועי קריאה.",
         q_en: "What is Normalization?",
         a_en: "Designing a relational schema to avoid duplication and keep consistency by splitting data into related tables per normal forms (1NF, 2NF, 3NF). Helps maintenance but may slow reads.",
       },
