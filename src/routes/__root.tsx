@@ -16,10 +16,6 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LangProvider } from "../lib/i18n";
 
-
-import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
-
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -85,14 +81,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Word Tech – לימוד אנגלית טכנית ושאלות QA" },
+      {
+        name: "description",
+        content:
+          "Word Tech – אפליקציה ללימוד מילים באנגלית טכנית ותרגול שאלות ותשובות בתחום בדיקות תוכנה ופיתוח תוכנה.",
+      },
+      { name: "author", content: "Word Tech" },
+      { property: "og:title", content: "Word Tech – לימוד אנגלית טכנית" },
+      {
+        property: "og:description",
+        content:
+          "סטים מדורגים של מילים באנגלית טכנית, מצב לופ עם השמעה, חידון ובדיקות, ושאלות ותשובות ב-QA ותוכנה.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+
     ],
     links: [
       {
