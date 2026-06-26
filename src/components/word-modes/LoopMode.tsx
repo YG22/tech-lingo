@@ -1,15 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Pause, Play, Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
 import { speak, stopSpeaking } from "@/lib/speech";
 import { useLang } from "@/lib/i18n";
 import type { WordSet } from "@/data/words";
 
 
-const DEFAULT_STEP_MS = 5000;
-const MIN_STEP_MS = 1000;
-const MAX_STEP_MS = 10000;
+const STEP_MS = 5000;
 
 function CountdownBadge({ ms, total }: { ms: number; total: number }) {
   const r = 18;
@@ -46,79 +43,74 @@ export function LoopMode({ set }: { set: WordSet }) {
   const { t } = useLang();
   const [idx, setIdx] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [stepMs, setStepMs] = useState(DEFAULT_STEP_MS);
-  const [timeLeft, setTimeLeft] = useState(stepMs);
-  const timerRef = useRef<number | null>(null);
-  const startTimeRef = useRef<number>(Date.now());
-  const remainingOnPauseRef = useRef<number>(stepMs);
+  const [timeLeft, setTimeLeft] = useState(STEP_MS);
   const w = set.words[idx];
+  const wordsLen = set.words.length;
 
-  // speak and reset timer whenever current word or step changes
+  // speak and reset timer whenever current word changes
   useEffect(() => {
-    setTimeLeft(stepMs);
-    remainingOnPauseRef.current = stepMs;
+    setTimeLeft(STEP_MS);
     speak(w.en);
-  }, [w, stepMs]);
+  }, [w]);
 
-  // countdown ticker
+  // countdown ticker — independent of timeLeft to avoid resetting
   useEffect(() => {
-    if (paused) {
-      remainingOnPauseRef.current = timeLeft;
-      return;
-    }
-    startTimeRef.current = Date.now() - (stepMs - remainingOnPauseRef.current);
-    timerRef.current = window.setInterval(() => {
-      const remaining = Math.max(0, stepMs - (Date.now() - startTimeRef.current));
+    if (paused) return;
+    const start = Date.now();
+    const startRemaining = STEP_MS;
+    const id = window.setInterval(() => {
+      const remaining = Math.max(0, startRemaining - (Date.now() - start));
       setTimeLeft(remaining);
       if (remaining <= 0) {
-        setIdx((i) => (i + 1) % set.words.length);
+        window.clearInterval(id);
+        setIdx((i) => (i + 1) % wordsLen);
       }
     }, 100);
-    return () => {
-      if (timerRef.current) window.clearInterval(timerRef.current);
-    };
-  }, [paused, idx, set.words.length, stepMs, timeLeft]);
+    return () => window.clearInterval(id);
+  }, [paused, idx, wordsLen]);
 
   useEffect(() => () => stopSpeaking(), []);
 
   const goPrev = () => {
     stopSpeaking();
-    setIdx((i) => (i - 1 + set.words.length) % set.words.length);
+    setIdx((i) => (i - 1 + wordsLen) % wordsLen);
   };
   const goNext = () => {
     stopSpeaking();
-    setIdx((i) => (i + 1) % set.words.length);
+    setIdx((i) => (i + 1) % wordsLen);
   };
 
   return (
     <div className="flex flex-col items-center gap-6">
       <div className="flex items-center gap-3 text-sm font-semibold text-foreground/70">
         <span>
-          {t("מילה", "Word")} {idx + 1} / {set.words.length}
+          {t("מילה", "Word")} {idx + 1} / {wordsLen}
         </span>
         <span className="text-foreground/40">•</span>
         <span>{paused ? t("מושהה", "Paused") : t("בהשמעה", "Playing")}</span>
-        {!paused && <CountdownBadge ms={timeLeft} total={stepMs} />}
+        {!paused && <CountdownBadge ms={timeLeft} total={STEP_MS} />}
       </div>
 
       <div
-        className="grid min-h-[260px] w-full place-items-center rounded-3xl border-2 border-primary/30 bg-card p-10 text-center shadow-md"
+        className="flex min-h-[260px] w-full flex-col items-center justify-center gap-6 rounded-3xl border-2 border-primary/30 bg-card p-10 text-center shadow-md"
         dir="ltr"
       >
-        <div>
-          <div className="font-display text-4xl font-bold text-card-foreground sm:text-6xl">
-            {w.en}
-          </div>
-          <div className="mt-6 text-2xl text-card-foreground/80 sm:text-3xl" dir="rtl">
-            {w.he}
-          </div>
+        <div className="font-display text-4xl font-bold text-card-foreground sm:text-6xl">
+          {w.en}
         </div>
+        <div className="text-2xl text-card-foreground/80 sm:text-3xl" dir="rtl">
+          {w.he}
+        </div>
+        <Button size="sm" variant="secondary" onClick={() => speak(w.en)}>
+          <Volume2 className="size-4" />
+          {t("השמע שוב", "Repeat")}
+        </Button>
       </div>
 
       <div className="flex flex-wrap items-center justify-center gap-2">
         <Button size="lg" variant="outline" onClick={goPrev}>
-          <ChevronRight className="size-5 rtl:hidden" />
-          <ChevronLeft className="size-5 ltr:hidden" />
+          <ChevronRight className="size-5 ltr:hidden" />
+          <ChevronLeft className="size-5 rtl:hidden" />
           {t("הקודמת", "Previous")}
         </Button>
 
@@ -137,36 +129,11 @@ export function LoopMode({ set }: { set: WordSet }) {
           {paused ? t("המשך", "Resume") : t("עצור", "Pause")}
         </Button>
 
-        <Button size="lg" variant="secondary" disabled={!paused} onClick={() => speak(w.en)}>
-          <Volume2 className="size-5" />
-          {t("השמע שוב", "Repeat")}
-        </Button>
-
         <Button size="lg" variant="outline" onClick={goNext}>
           {t("הבאה", "Next")}
-          <ChevronLeft className="size-5 rtl:hidden" />
-          <ChevronRight className="size-5 ltr:hidden" />
+          <ChevronLeft className="size-5 ltr:hidden" />
+          <ChevronRight className="size-5 rtl:hidden" />
         </Button>
-      </div>
-
-      <div className="w-full max-w-sm rounded-2xl border border-primary/20 bg-card/60 p-4">
-        <div className="mb-2 flex items-center justify-between text-sm font-semibold text-foreground/80">
-          <span>{t("זמן בין מילים", "Time between words")}</span>
-          <span className="tabular-nums text-primary">
-            {(stepMs / 1000).toFixed(0)} {t("שניות", "sec")}
-          </span>
-        </div>
-        <Slider
-          value={[stepMs]}
-          min={MIN_STEP_MS}
-          max={MAX_STEP_MS}
-          step={1000}
-          onValueChange={(v) => setStepMs(v[0])}
-        />
-        <div className="mt-1 flex justify-between text-xs text-foreground/50">
-          <span>1</span>
-          <span>10</span>
-        </div>
       </div>
 
       <p className="max-w-md text-center text-xs text-foreground/60">
