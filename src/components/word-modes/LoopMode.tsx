@@ -7,37 +7,92 @@ import type { WordSet } from "@/data/words";
 
 const STEP_MS = 5000;
 
+function CountdownBadge({ ms }: { ms: number }) {
+  const r = 18;
+  const circumference = 2 * Math.PI * r;
+  const progress = Math.max(0, Math.min(1, ms / STEP_MS));
+  const offset = circumference * (1 - progress);
+  const seconds = Math.max(1, Math.ceil(ms / 1000));
+
+  return (
+    <div className="relative flex size-10 items-center justify-center">
+      <svg className="size-10 -rotate-90" viewBox="0 0 40 40">
+        <circle
+          cx="20"
+          cy="20"
+          r={r}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="4"
+          className="text-primary/15"
+        />
+        <circle
+          cx="20"
+          cy="20"
+          r={r}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="4"
+          strokeLinecap="round"
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
+          className="text-primary transition-all duration-100 ease-linear"
+        />
+      </svg>
+      <span className="absolute text-xs font-semibold tabular-nums text-primary">
+        {seconds}
+      </span>
+    </div>
+  );
+}
+
 export function LoopMode({ set }: { set: WordSet }) {
   const { t } = useLang();
   const [idx, setIdx] = useState(0);
   const [paused, setPaused] = useState(false);
-  const timer = useRef<number | null>(null);
+  const [timeLeft, setTimeLeft] = useState(STEP_MS);
+  const timerRef = useRef<number | null>(null);
+  const startTimeRef = useRef<number>(Date.now());
+  const remainingOnPauseRef = useRef<number>(STEP_MS);
   const w = set.words[idx];
 
-  // speak whenever current word changes (and not paused on a manual stop)
+  // speak and reset timer whenever current word changes
   useEffect(() => {
+    setTimeLeft(STEP_MS);
+    remainingOnPauseRef.current = STEP_MS;
     speak(w.en);
   }, [w]);
 
-  // ticker
+  // countdown ticker
   useEffect(() => {
-    if (paused) return;
-    timer.current = window.setTimeout(() => {
-      setIdx((i) => (i + 1) % set.words.length);
-    }, STEP_MS);
+    if (paused) {
+      remainingOnPauseRef.current = timeLeft;
+      return;
+    }
+    startTimeRef.current = Date.now() - (STEP_MS - remainingOnPauseRef.current);
+    timerRef.current = window.setInterval(() => {
+      const remaining = Math.max(0, STEP_MS - (Date.now() - startTimeRef.current));
+      setTimeLeft(remaining);
+      if (remaining <= 0) {
+        setIdx((i) => (i + 1) % set.words.length);
+      }
+    }, 100);
     return () => {
-      if (timer.current) window.clearTimeout(timer.current);
+      if (timerRef.current) window.clearInterval(timerRef.current);
     };
-  }, [idx, paused, set.words.length]);
+  }, [paused, idx, set.words.length]);
 
   useEffect(() => () => stopSpeaking(), []);
 
   return (
     <div className="flex flex-col items-center gap-8">
-      <div className="text-sm font-semibold text-foreground/70">
-        {t("מילה", "Word")} {idx + 1} / {set.words.length}
-        {" • "}
-        {paused ? t("מושהה", "Paused") : t("בהשמעה", "Playing")}
+      <div className="flex items-center gap-3 text-sm font-semibold text-foreground/70">
+        <span>
+          {t("מילה", "Word")} {idx + 1} / {set.words.length}
+        </span>
+        <span className="text-foreground/40">•</span>
+        <span>{paused ? t("מושהה", "Paused") : t("בהשמעה", "Playing")}</span>
+        {!paused && <CountdownBadge ms={timeLeft} />}
       </div>
 
       <div
