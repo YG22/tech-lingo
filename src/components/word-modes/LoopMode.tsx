@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { Pause, Play, Volume2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Pause, Play, Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Slider } from "@/components/ui/slider";
 import { speak, stopSpeaking } from "@/lib/speech";
 import { useLang } from "@/lib/i18n";
 import type { WordSet } from "@/data/words";
+
 
 const STEP_MS = 5000;
 
