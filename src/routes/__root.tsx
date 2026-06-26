@@ -81,14 +81,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "TechLingo – לימוד אנגלית טכנית ושאלות QA" },
+      { title: "TechLingo" },
       {
         name: "description",
         content:
           "TechLingo – אפליקציה ללימוד מילים באנגלית טכנית ותרגול שאלות ותשובות בתחום בדיקות תוכנה ופיתוח תוכנה.",
       },
       { name: "author", content: "TechLingo" },
-      { property: "og:title", content: "TechLingo – לימוד אנגלית טכנית" },
+      { property: "og:title", content: "TechLingo" },
       {
         property: "og:description",
         content:
@@ -97,14 +97,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
 
+      { name: "twitter:title", content: "TechLingo" },
+      { name: "description", content: "Learn technical English, software testing, and general software Q&A with this app." },
+      { property: "og:description", content: "Learn technical English, software testing, and general software Q&A with this app." },
+      { name: "twitter:description", content: "Learn technical English, software testing, and general software Q&A with this app." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e8ece819-c307-44e2-9e8a-f792e4972a9f/id-preview-6fdf9e44--5896459a-342d-4ea4-b3d3-2f6e3fa6e297.lovable.app-1782490427826.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e8ece819-c307-44e2-9e8a-f792e4972a9f/id-preview-6fdf9e44--5896459a-342d-4ea4-b3d3-2f6e3fa6e297.lovable.app-1782490427826.png" },
     ],
     links: [
-      { rel: "stylesheet", href: appCss },
-      { rel: "icon", type: "image/png", href: "/app-icon.png" },
-      { rel: "apple-touch-icon", href: "/app-icon.png" },
-      { rel: "manifest", href: "/manifest.webmanifest" },
+      {
+        rel: "stylesheet",
+        href: appCss,
+      },
     ],
-
   }),
   shellComponent: RootShell,
   component: RootComponent,
