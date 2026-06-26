@@ -790,3 +790,7 @@ export const SOFTWARE_TOPICS: Topic[] = [
 // Append job-interview and advanced topics
 QA_TOPICS.push(...EXTRA_TOPICS);
 
+// Append software-focused topics
+SOFTWARE_TOPICS.push(...EXTRA_SOFTWARE_TOPICS);
+
+
