@@ -31,8 +31,8 @@ function Home() {
       icon: Code2,
       he: "תרגול שאלות ותשובות בתוכנה",
       en: "Software Questions & Answers",
-      desc_he: "200+ שאלות בתוכנה, OOP, מסדי נתונים, רשתות ו-DevOps",
-      desc_en: "200+ software questions on OOP, databases, networking and DevOps",
+      desc_he: "100+ שאלות בתוכנה, OOP, מסדי נתונים, רשתות ו-DevOps",
+      desc_en: "100+ software questions on OOP, databases, networking and DevOps",
     },
   ];
 
